@@ -2,13 +2,14 @@
 #Created by Kyle Groulx, Jan 2nd, 2023.
 #A Python script take user input for an unsolved Sudoku puzzle and prints the solved puzzle.
 
-#Checks for duplicates of num in array
-def hasDuplicates(array, x, y):
-    if array[x][y] == 0:
+#Checks for Sudoku Violation in array, ignoring zero.
+def hasDuplicates(array, row, col):
+    num = array[row][col]
+    if num == 0:
         return False
-    row = array[x]
-    column = [row[x] for row in array]
-    return row.count(array[x][y]) > 1 or column.count(array[x][y]) > 1
+    rowArray = array[row]
+    colArray = [rows[col] for rows in array]
+    return rowArray.count(num) > 1 or colArray.count(num) > 1
 
 
 def solveSudoku(array):
@@ -20,12 +21,18 @@ def solveSudoku(array):
 
     #interates through for a 0.
     for row in range(size):
-        for column in range(size):
-            if array[row][column] == 0:
+        for col in range(size):
+            if array[row][col] == 0:
                 for i in range(1, size+1):
-                    array[row][column] = i
-                    if hasDuplicates(array, row, column) == False:
-                        return solveSudoku(array)
+                    array[row][col] = i
+                    if hasDuplicates(array, row, col) == False:
+                        result = solveSudoku(array)
+                        if result != False:
+                            return result
+                array[row][col] = 0
+                return False    
+
+
 
     
 
@@ -35,9 +42,9 @@ rows = inputString.split(',')
 numbers = [row.split() for row in rows] 
 numbers = [[int(x) for x in row] for row in numbers]
 
-solveSudoku(numbers)
-
-print(numbers)
+solvedSudoku = solveSudoku(numbers)
+for row in solvedSudoku:
+    print(row)
             
 
 
