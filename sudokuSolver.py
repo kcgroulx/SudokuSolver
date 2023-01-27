@@ -101,7 +101,7 @@ unsolvedSudoku25x25 = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 
 start = time.perf_counter()
 print("\nSolving...\n")
-solvedSudoku = solveSudoku(unsolvedSudoku16x16)
+solvedSudoku = solveSudoku(unsolvedSudoku9x9)
 end = time.perf_counter()
 if solvedSudoku != False: 
     print("Solution:\n")
